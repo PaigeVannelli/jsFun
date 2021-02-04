@@ -27,10 +27,36 @@ const kittyPrompts = {
 
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
+    // .filter(cat => {
+    //   cat.color === 'orange';
+    // })
     
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // const result = kitties.reduce((acc, cat) => {
+    //   if (cat.color === 'orange'){
+    //     acc.push(cat.name) 
+    //   }
+    //   return acc
+    // }, [])
 
+
+    const result = kitties.map(cat => {
+      return (cat.color === 'orange') ? [...cat.name] : [...""]
+    })
+    console.log(result)
+    return result
+
+
+    // .filter(cat => {
+    //   return cat.color === 'orange';
+    // })
+    // .map(cat => {
+    //   return cat.name
+    // })
+    // return result;
+
+    // I am given an array of objects 
+    //I want to return objects that have a certain characteristic 
+    //We need to use filter 
     // Annotation:
     // Write your annotation here as a comment
   },

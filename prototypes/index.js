@@ -31,18 +31,13 @@ const kittyPrompts = {
     //   cat.color === 'orange';
     // })
     
-    // const result = kitties.reduce((acc, cat) => {
-    //   if (cat.color === 'orange'){
-    //     acc.push(cat.name) 
-    //   }
-    //   return acc
-    // }, [])
+    const result = kitties.reduce((acc, cat) => {
+      if (cat.color === 'orange'){
+        acc.push(cat.name) 
+      }
+      return acc
+    }, [])
 
-
-    const result = kitties.map(cat => {
-      return (cat.color === 'orange') ? [...cat.name] : [...""]
-    })
-    console.log(result)
     return result
 
 
@@ -64,10 +59,16 @@ const kittyPrompts = {
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a, b) => {
+      return b.age - a.age;
+    });
     return result;
 
     // Annotation:
+    //I have an array of objects 
+    //I need to sort by their age
+    //return an array of the same length that's mutated by reassigning index number
+    //.map() most likely 
     // Write your annotation here as a comment
   },
 
@@ -85,11 +86,29 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // const result = kitties.sort((a, b) => {
+    //   return b.age - a.age;
+    // }).map(cat => {
+    //   cat.age += 2; 
+    //   return cat
+    // })
+    const result = kitties.sort((a, b) => {
+      return b.age - a.age;
+    }).reduce((olderCats, cat) => {
+      cat.age += 2; 
+      olderCats.push(cat);
+      return olderCats;
+    }, [])
+
     return result;
   }
 };
 
+//I have an array in the wrong order and I want to add two to each age
+//My first step is to sort array into the order I'd like using sort 
+//second step: use .map() or .reduce() to a new array 
+//cats should be in the right order already so I need to add two to ages 
+//return each cat object 
 
 
 
@@ -117,28 +136,124 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // const result = clubs.reduce((keys, clubInfo) => {
+    //     let memberNames = clubInfo.members.map(name => {
+    //       return name
+    //     })
+    //     // keys[memberNames] = [];
+    //     console.log(memberNames)
+    //     return keys
+    // }, {});
+    // console.log(result)
+    // return result;
 
+
+    // const result = clubs.reduce((nameArray, clubInfo) => {
+    //   clubInfo.members.forEach(member => {
+    //     if (!nameArray.includes(member)) {
+    //       nameArray.push(member)
+    //     }
+    //   })
+    //     return nameArray
+    // }, []).reduce((clubs, titles) => {
+    //   clubs[titles] = ''
+    //   console.log(clubs)
+    //   return clubs
+    // }, {})
+
+    // given an array of club info objects 
+    // each object has a club and members
+    // we want one object with property as names non repeating
+    // values of array of clubs they are in 
+    // 1. reduce() to give us one object
+    // 2. for each club we need to go through each member in the members property 
+      // Each member should be a key in our new object 
+        // using square bracket notation we create a property in an object 
+        // We need a conditional that checksif name already exists as a proprty 
+      // Assign the values to each name in our new object based on which club object they exist in as a member
+        // in the second nested iterator we want to access the objects club value and push it into each new objects array value 
+        // 
+
+
+    // const result = clubs.reduce((membersInfo, club) => {
+    //   club.members.forEach(name => {
+    //     if (!membersInfo[name]) {
+    //       membersInfo[name] = [];
+    //     }
+    //     if (club.members.includes(name)) {
+    //       membersInfo[name].push(club.club)
+    //     }
+    //   })
+    //   return membersInfo
+    // }, {})
+
+    // return result;
+
+    // const result = clubs.reduce((membersInfo, club) => {
+    //   club.members.forEach(name => {
+    //     if (!membersInfo[name]) {
+    //       membersInfo[name] = [];
+    //     }
+    //     if (!membersInfo[name].includes(club.club)) {
+    //       membersInfo[name].push(club.club)
+    //     }
+    //   })
+    //   return membersInfo
+    // }, {})
+
+    // return result;
+
+    //Annotation #2
+    // 1. Need to access array.members iterate through those array and push to new array 
     // Annotation:
-    // Write your annotation here as a comment
+    //start with: an array or objects 
+    //keys include club name as a string
+    //members as an array 
+    //I need to return:
+    //an object with key of persons name 
+    //value of array of clubes they are in 
+    //reduce
+    //1. .map get an array of all of the name 
+    // filter to filter through just unique names
+    //reduce to 
+    //check each key and see if the value includes a name 
+    //if it does add the value to the name key 
+    //return an object with name keys and values 
+
+
+    //Array of objects with members as an array of names 
+    //I want to return one new object 
+    // use reduce to return an object 
+    // 1. iterate through array with reduce 
+      // target members array 
+      // I want to put them in my object 
+      // forEach() member 
+      //conditional if object doesn't incclude it 
+      // create that key = []
+    // 2. values 
+      // conditional if members includes member 
+      // target the member array in the object .push club
+
+      // const result = clubs.reduce((membersBelonging, club) => {
+      //   club.members.forEach(member => {
+      //     if (!membersBelonging[member]) {
+      //       return membersBelonging[member] = [];
+      //     }
+      //     if (membersBelonging[member])
+      //   })
+
+      // }, {})
+
+      // return result;
   }
 };
 
 
-
-
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
-
-
 
 
 // DATASET: mods from ./datasets/mods
@@ -153,10 +268,29 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = mods.map(session => {
+      const studentNumber = session.students / session.instructors;
+      let object = {};
+      object.mod = session.mod;
+      object.studentsPerInstructor = studentNumber;
+      return object
+    });
     return result;
 
+    // const result = mods.reduce((sessionBreakdown, session) => {
+    //   let object = {}
+    //   const studentNumber = session.students / session.instructors;
+    //   object.mod = session.mod;
+    //   object.studentsPerInstructor = studentNumber
+    //   sessionBreakdown.push(object)
+    //   return sessionBreakdown
+    // }, []);
+    // return result;
+
     // Annotation:
+    //array of objects 
+    // return an array same length of object 
+    //.map to return an array of the same length but mutated 
     // Write your annotation here as a comment
   }
 };
@@ -188,10 +322,18 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.map(cake => {
+      let newCake = {}
+      newCake.flavor = cake.cakeFlavor;
+      newCake.inStock = cake.inStock;
+      return newCake
+    });
     return result;
 
     // Annotation:
+    //We are given an array of objects
+    //We want to treturn an array of the same length with fewer keys 
+    //.map()
     // Write your annotation here as a comment
   },
 
@@ -216,10 +358,16 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(cake => {
+      return cake.inStock > 0;
+    });
     return result;
 
     // Annotation:
+    // I have an array of objects
+    // I want to return a short array of the same items
+    // .filter to return the right item
+    // when cake.inStock > 0
     // Write your annotation here as a comment
   },
 
@@ -227,10 +375,17 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((stock, cake) => {
+      return stock += cake.inStock 
+    }, 0);
     return result;
 
     // Annotation:
+    // we have an array of object 
+    //We need to target the inStock amount 
+    // add up the instock amount for each  
+    // need to return a number from an array 
+    //reduce 
     // Write your annotation here as a comment
   },
 
@@ -239,10 +394,22 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((toppings, cake) => {
+      cake.toppings.forEach(topping => {
+        if (!toppings.includes(topping)) {
+          toppings.push(topping)
+        }
+      })
+      return toppings
+    }, []);
     return result;
 
     // Annotation:
+    // We want to return an array of a different length
+    // array should be all unique toppings
+    // I want to use a reduce
+    // have a conditional that checks if the new array includes the topping
+    // if not push the topping into the array 
     // Write your annotation here as a comment
   },
 
@@ -257,10 +424,28 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((list, cake) => {
+      cake.toppings.forEach(topping => {
+        if (!list[topping]) {
+          list[topping] = 0
+        }
+        list[topping] += 1
+      }) 
+      return list
+    }, {});
     return result;
 
     // Annotation:
+    //So we want to return ONE object 
+    // use a reduce returning an object
+    // 1. keys are each unique topping
+      // .forEach indiviudal topping 
+      // We want a condition to check if that key exists in our object 
+      // if not we create a key for each object 
+    // 2. assign a value to each key
+      // start with a value of 0 for each key 
+      // in the same for each iteration outside of the conditional 
+      // find the object.key that matches the topping + 1 to the value 
     // Write your annotation here as a comment
   }
 };
@@ -292,10 +477,16 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.filter(classroom => {
+      return classroom.program === 'FE';
+    });
     return result;
 
     // Annotation:
+    // given: Array of object 
+    // return: an array of oject where the program is FE
+    // I want to reutrn a shorter array not mutated - .filter
+    // statement I want to check is if each object.program === 'FE'
     // Write your annotation here as a comment
   },
 
@@ -307,21 +498,54 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // const result = classrooms.reduce((totalCapacities, classroom) => {
+    //   if (!totalCapacities.feCapacity) {
+    //     totalCapacities.feCapacity = 0;
+    //   };
+    //   if (!totalCapacities.beCapacity) {
+    //     totalCapacities.beCapacity = 0;
+    //   }
+    //   console.log(classroom.program)
+    //   if (classroom.program === 'FE') {
+    //     totalCapacities.feCapacity += classroom.capacity
+    //   } else if (classroom.program === 'BE') {
+    //     totalCapacities.beCapacity += classroom.capacity;
+    //   }
+    //   return totalCapacities;
+    // // }, {feCapacity: 0, beCapacity: 0});
+    // }, {});
+
+    const result = classrooms.reduce((totalCapacities, classroom) => {
+      console.log(classroom.program)
+      if (classroom.program === 'FE') {
+        totalCapacities.feCapacity += classroom.capacity
+      } else if (classroom.program === 'BE') {
+        totalCapacities.beCapacity += classroom.capacity;
+      }
+      return totalCapacities;
+    }, {feCapacity: 0, beCapacity: 0});
     return result;
 
     // Annotation:
+    // given: array of objects
+    // return one object with two keys
+    // Use a reduce and return an object with two keys built in 
+    // set each key = 0 and add the amount of student for each classroom if the program is right
     // Write your annotation here as a comment
   },
 
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = classrooms.sort((a, b) => {
+      return a.capacity - b.capacity
+    })
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // given an array of objects
+    // I need to return an array od obejcts the same length 
+    // I would want to use .sort to sort by capacity 
   }
 };
 
@@ -344,11 +568,20 @@ const bookPrompts = {
     //   'Catch-22', 'Treasure Island']
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books.reduce((removedViolence, book) => {
+      if (book.genre !== 'Horror' && book.genre !== 'True Crime') {
+        removedViolence.push(book.title)
+      }
+      return removedViolence
+    }, []);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We get an array of book objects 
+    // I want to return a new array that's shorter with just book titles 
+    // reduce to return a shorter array 
+    // I would want to return an array and if the book genre isn't horror or true crime
+    // I want to push the books title to my accumulator 
 
   },
   getNewBooks() {
@@ -359,10 +592,37 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // const result = books.reduce((getNewBook, book) => {
+    //   if (book.published >= 1990) {
+    //     let newBook = {}
+    //     newBook.title = book.title;
+    //     newBook.year = book.published;
+    //     getNewBook.push(newBook);
+    //   }
+    //   return getNewBook
+    // }, []);
+    // return result;
+
+    const result = books.filter(book => {
+      return book.published >= 1990;
+    }).map(book => {
+      return {
+        title : book.title,
+        year : book.published,
+      }
+    })
+    return result
+
+    // use a filter to get all of the books in the right years
+    // chain on .map to mutate our objects returning title and year
 
     // Annotation:
+    // given array of book object 
+    // a shorter array of just book published in 1990 and 2000
+    // use a reduce 
+    // return an array 
+    // push in book objects
+    // w properties title and year
     // Write your annotation here as a comment
   }
 
@@ -382,11 +642,20 @@ const weatherPrompts = {
     // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.map(city => {
+      return (city.temperature.high + city.temperature.low) / 2
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // given array of objects
+    // access each objects temp key obejct 
+    // return array of numbers
+    // .map
+      // add up each cities high low / 2
+      // return number 
+
+    
   },
 
   findSunnySpots() {
@@ -396,11 +665,21 @@ const weatherPrompts = {
     // 'New Orleans, Louisiana is sunny.',
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = weather.filter(city => {
+      if (city.type === "sunny" || city.type === "mostly sunny") {
+        return city
+      }
+    }).map(city => {
+      return `${city.location} is ${city.type}.`
+    })
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // given array of objects
+    // return shorter array of strings
+    // use a filter then use a map change what we are returning 
+      // check for mostly sunny + sunny 
+      // return city and temp in string 
   },
 
   findHighestHumidity() {
@@ -412,11 +691,17 @@ const weatherPrompts = {
     //   temperature: { high: 49, low: 38 }
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    let result = weather.sort((a, b) => {
+      return b.humidity - a.humidity 
+    });
+    let newResult = result[0]
+    return newResult;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // given - array of objects 
+    // return one object not mutated 
+    // use .sort on city.humidity
+    // return the array position of the highest humidity
 
   }
 };

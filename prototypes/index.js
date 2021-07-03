@@ -31,14 +31,14 @@ const kittyPrompts = {
     //   cat.color === 'orange';
     // })
     
-    const result = kitties.reduce((acc, cat) => {
-      if (cat.color === 'orange'){
-        acc.push(cat.name) 
-      }
-      return acc
-    }, [])
+    // const result = kitties.reduce((acc, cat) => {
+    //   if (cat.color === 'orange'){
+    //     acc.push(cat.name) 
+    //   }
+    //   return acc
+    // }, [])
 
-    return result
+    // return result
 
 
     // .filter(cat => {
@@ -54,15 +54,26 @@ const kittyPrompts = {
     //We need to use filter 
     // Annotation:
     // Write your annotation here as a comment
+
+    // filter by kitties.color === organge 
+    // return kitties.name
+    const result = kitties.filter(cat => {
+      return cat.color === 'orange'
+    }).map(kitty => {
+      return kitty.name
+    })
+
+    return result
+
   },
 
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = kitties.sort((a, b) => {
-      return b.age - a.age;
-    });
-    return result;
+    // const result = kitties.sort((a, b) => {
+    //   return b.age - a.age;
+    // });
+    // return result;
 
     // Annotation:
     //I have an array of objects 
@@ -70,6 +81,13 @@ const kittyPrompts = {
     //return an array of the same length that's mutated by reassigning index number
     //.map() most likely 
     // Write your annotation here as a comment
+
+    // use sort and sort by age 
+
+    const result = kitties.sort((a, b) => {
+      return b.age - a.age
+    })
+    return result 
   },
 
   growUp() {
@@ -92,17 +110,28 @@ const kittyPrompts = {
     //   cat.age += 2; 
     //   return cat
     // })
-    const result = kitties.sort((a, b) => {
-      return b.age - a.age;
-    }).reduce((olderCats, cat) => {
-      cat.age += 2; 
-      olderCats.push(cat);
-      return olderCats;
-    }, [])
+  //   const result = kitties.sort((a, b) => {
+  //     return b.age - a.age;
+  //   }).reduce((olderCats, cat) => {
+  //     cat.age += 2; 
+  //     olderCats.push(cat);
+  //     return olderCats;
+  //   }, [])
 
-    return result;
+  //   return result;
+  // }
+
+  //map and change the age of each Cat by + 2 
+  const result = kitties.sort((a, b) => {
+    return b.age - a.age
+  }).map(cat => {
+    cat.age += 2
+    return cat
+  })
+
+  return result 
   }
-};
+}
 
 //I have an array in the wrong order and I want to add two to each age
 //My first step is to sort array into the order I'd like using sort 
@@ -135,6 +164,31 @@ const clubPrompts = {
     //   Pam: ['Drama', 'Art', 'Chess'],
     //   ...etc
     // }
+
+    // const clubNames = clubs.reduce((clubsObject, club) => {
+    //   club.members.forEach(member => {
+    //     if (!clubsObject[member]) {
+    //       clubsObject[member] = [];
+    //     }
+    //     if (club.members.includes(clubObject[member])) {
+    //       clubObjects[member].push(member)
+    //   }
+    // }
+
+    //   console.log(clubsObject)
+    //   return clubsObject
+    // }, {})
+    // return clubNames
+  
+
+    // in: array of obejcts
+    // target: members array 
+    // return one new object 
+    // use a reduce on the clubs array
+      // use for each on members
+      // if property doesn't exist create it
+      //then if members.includes club name push into array 
+
 
     // const result = clubs.reduce((keys, clubInfo) => {
     //     let memberNames = clubInfo.members.map(name => {
@@ -424,16 +478,37 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = cakes.reduce((list, cake) => {
+    const result = cakes.reduce((toppingList, cake) => {
       cake.toppings.forEach(topping => {
-        if (!list[topping]) {
-          list[topping] = 0
+        if (!toppingList[topping]) {
+          toppingList[topping] = 1
+        } else {
+          toppingList[topping]++
         }
-        list[topping] += 1
-      }) 
-      return list
-    }, {});
+      })
+      return toppingList
+    }, {})
+
+
+    //in array of cake obejcts
+    // target: cake.toppings
+    // one object
+    // reduce return an object 
+      //forEach on topppings
+      // conditional that if it doesn't exist as a proprty
+      // create that property and add one
+      // otherwise take proprty ++
+
     return result;
+    // const result = cakes.reduce((list, cake) => {
+    //   cake.toppings.forEach(topping => {
+    //     if (!list[topping]) {
+    //       list[topping] = 0
+    //     }
+    //     list[topping] += 1
+    //   }) 
+    //   return list
+    // }, {});
 
     // Annotation:
     //So we want to return ONE object 
@@ -568,12 +643,30 @@ const bookPrompts = {
     //   'Catch-22', 'Treasure Island']
 
 
-    const result = books.reduce((removedViolence, book) => {
-      if (book.genre !== 'Horror' && book.genre !== 'True Crime') {
-        removedViolence.push(book.title)
-      }
-      return removedViolence
-    }, []);
+    const result = books.filter(book => {
+      return book.genre !== 'Horror' && book.genre !== 'True Crime'
+    }).map(book => {
+      return book.title
+    })
+
+    console.log(result)
+
+    // array of book objects
+    // targeting book.genre
+    // out: a shorter mutated array
+    //filter and then a map
+      // filter if genre !== horro or true crime 
+      // map and return just names 
+    // or a recuce 
+    
+
+
+    // const result = books.reduce((removedViolence, book) => {
+    //   if (book.genre !== 'Horror' && book.genre !== 'True Crime') {
+    //     removedViolence.push(book.title)
+    //   }
+    //   return removedViolence
+    // }, []);
     return result;
 
     // Annotation:
@@ -723,12 +816,25 @@ const nationalParksPrompts = {
     //   parksToVisit: ["Yellowstone", "Glacier", "Everglades"],
     //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
     //}
+    let parksResult = {
+      parksToVisit: [],
+      parksVisited: []
+    }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    nationalParks.forEach(park => {
+      if (park.visited) {
+        parksResult.parksVisited.push(park.name)
+      } else {
+        parksResult.parksToVisit.push(park.name)
+      }
+    });
+    return parksResult;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // given: and array of park objects 
+    // return: an object two new arrays with park names 
+    // use a forEach
+    // conditional that pushes into each array base on true of false
   },
 
   getParkInEachState() {
@@ -741,11 +847,19 @@ const nationalParksPrompts = {
     // { Florida: 'Everglades' } ]
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.map(park => {
+      newPark = {}
+      newPark[park.location] = park.name
+      return newPark
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // in: array of park objects
+    // out: an array of object same length but mutated 
+    // method: .map return objects with 
+      // location as a key and name as value 
+
   },
 
   getParkActivities() {
@@ -764,10 +878,23 @@ const nationalParksPrompts = {
     //   'backpacking',
     //   'rock climbing' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = nationalParks.reduce((activities, park) => {
+      park.activities.forEach(activity => {
+        if (!activities.includes(activity)) {
+          activities.push(activity)
+        }
+      })
+      return activities
+    }, []);
     return result;
 
     // Annotation:
+    // in: array of objects
+    // target: an array in the array 
+    // out: new array 
+    // reduce in national parks
+      // forEach activity 
+        // if acitivty doesn't exisit in array push it in
     // Write your annotation here as a comment
   }
 };
@@ -791,10 +918,19 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = breweries.reduce((totalBeers, brewery) => {
+      totalBeers += brewery.beers.length
+      // console.log(totalBeers)
+      return totalBeers
+    }, 0);
     return result;
 
     // Annotation:
+    // in: array of brewery objects 
+    // access: the beers array
+    // out: one number
+    // method: use reduce acc = 0
+      //get the length of each beers array add to acc 
     // Write your annotation here as a comment
   },
 
@@ -944,24 +1080,57 @@ const turingPrompts = {
 
 
 
+// Create an array of objects that each have the name 
+// of the boss and the sum
+// loyalty of all their sidekicks. e.g.:
+// [
+//   { bossName: 'Jafar', sidekickLoyalty: 3 },
+//   { bossName: 'Ursula', sidekickLoyalty: 20 },
+//   { bossName: 'Scar', sidekickLoyalty: 16 }
+// ]
 // DATASET: bosses, sidekicks from ./datasets/bosses
 const bossPrompts = {
   bossLoyalty() {
-    // Create an array of objects that each have the name of the boss and the sum
-    // loyalty of all their sidekicks. e.g.:
-    // [
-    //   { bossName: 'Jafar', sidekickLoyalty: 3 },
-    //   { bossName: 'Ursula', sidekickLoyalty: 20 },
-    //   { bossName: 'Scar', sidekickLoyalty: 16 }
-    // ]
-
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
+    let bossNames = Object.keys(bosses);
+    const result = bossNames.reduce((finalArray, boss) => {
+      let newBossObject = {
+        bossName: bosses[boss].name,
+        sidekickLoyalty: 0
+      }
+      sidekicks.forEach(sidekick => {
+        // console.log(bosses[boss].name)
+        if (sidekick.boss === bosses[boss].name) {
+          newBossObject.sidekickLoyalty += sidekick.loyaltyToBoss
+        }
+      })
+      finalArray.push(newBossObject)
+      return finalArray
+    }, [])
+    return result
   }
-};
+}
+
+// Annotation:
+//   let bossNames = Object.keys(bosses);
+//   let result = bossNames.map(boss => {
+//     sidekicks.forEach(sidekick => {
+//       if(sidekicks.boss === bosses[boss].name) {
+//         let finalObject = {
+//           bossName: bosses[boss].name,
+//           sidekickLoyalty: 0
+//         }
+//         console.log("test", sidekick.loyaltyToBoss)
+//         finalObject.sidekickLoyalty += sideKick.loyaltyToBoss
+//       }
+//     })
+//     return finalObject 
+//   })
+//   return result 
+// }
+    // in: object of objects 
+    // use Object.keys on bosses to target each boss name 
+    // use a .map on object.keys  return new object 
+    // if boss === bossname then add boss loyalty 
 
 
 
@@ -997,11 +1166,24 @@ const astronomyPrompts = {
     //     color: 'red' }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    let constellationName = Object.keys(constellations)
+    let allStars = []
+    const result = constellationName.forEach(constellation => {
+      constellations[constellation].stars.forEach(star => {
+        allStars.push(star)
+      })
+    });
+    const finalResult = stars.filter(star => {
+      return allStars.includes(star.name)
+    })
+    return finalResult;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // in: constellation object 
+    // method: Object.key and then for each constalation.stars
+    // for each Star add to new array 
+    // method filter by is new array includes star name 
+    // return: new smaller array 
   },
 
   starsByColor() {
@@ -1015,11 +1197,22 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = stars.reduce((finalObject, star) => {
+      if (star.color in finalObject) {
+      } else {
+        finalObject[star.color] = []
+      }
+      finalObject[star.color].push(star)
+      return finalObject
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // in: stars array of objects 
+    // out: one object with color keys and star arrays
+    // method: target stars user a reduce to return an object 
+    // if star color in object push in star
+    // else create key and push in star 
   },
 
   constellationsStarsExistIn() {
@@ -1117,11 +1310,18 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    const result = movies.reduce((countObject, movie) => {
+      countObject[movie.title] = 0
+      countObject[movie.title] += movie.dinos.length
+      return countObject
+    }, {});
+    // return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // In: movies array of objects 
+    // targeting dinos array 
+    // return: one object with key of title and value of dinos length
+    // methods: reduce on movies array returning an obejct  
   },
 
   averageAgePerMovie() {
@@ -1150,16 +1350,32 @@ const dinosaurPrompts = {
       }
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = movies.reduce((finalObject, movie) => {
+      finalObject[movie.director] = {}
+      finalObject[movie.director] = movie.title 
+      movieTitleObject = {}
+      movieTitleObject[movie.title]
+      return finalObject
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // In: review human object with human objects 
+    // in: iterate through movies array targeting cast array 
+    // return new object with key director and if that matches 
+    // push all movie titels to new object then see if cats names match 
+    // grab yearReleased - year born 
+
+    
+
   },
 
   uncastActors() {
     /*
-    Return an array of objects that contain the names of humans who have not been cast in a Jurassic Park movie (yet), their nationality, and their imdbStarMeterRating. The object in the array should be sorted alphabetically by nationality.
+    Return an array of objects that contain the names of 
+    humans who have not been cast in a Jurassic Park movie (yet), 
+    their nationality, and their imdbStarMeterRating.
+    The object in the array should be sorted alphabetically by nationality.
 
     e.g.
       [{
@@ -1183,16 +1399,43 @@ const dinosaurPrompts = {
       }]
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    let stars = Object.keys(humans)
+    let isCast 
+    const result = stars.reduce((notCast, star) => {
+      isCast = false 
+      movies.forEach(movie => {
+        if (movie.cast.includes(star)) {
+          isCast = true
+        }
+      })
+      if (!isCast) {
+        let starObject = {}
+        starObject.name = star
+        starObject.nationality = humans[star].nationality
+        starObject.imdbStarMeterRating = humans[star].imdbStarMeterRating
+        notCast.push(starObject)
+      }
+      let final = notCast.sort((a, b) => {
+        return b.nationality - a.nationality
+      })
+      return final
+    }, [])
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // In: humans obect with human objects 
+    // target human.name, nationality and imdb rating 
+    // in: movies.cast
+    // methods: user reduce on movies array returning an array of object 
+    // if cast memeber is not included in cast for each 
+    // creat object and push in array 
   },
 
   actorsAgesInMovies() {
     /*
-    Return an array of objects for each human and the age(s) they were in the movie(s) they were cast in, as an array of age(s). Only include humans who were cast in at least one movie.
+    Return an array of objects for each human and the age(s) 
+    they were in the movie(s) they were cast in, as an array of age(s). 
+    Only include humans who were cast in at least one movie.
 
     e.g.
     [ { name: 'Sam Neill', ages: [ 46, 54 ] },
@@ -1206,13 +1449,196 @@ const dinosaurPrompts = {
       { name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
     */
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+   let castMembers = Object.keys(humans)
+    const result = castMembers.reduce((castObjects, member) => {
+      let newObject = {
+        name: member,
+        ages: [],
+      }
+      movies.forEach(movie => {
+        if (movie.cast.includes(member)) {
+          let age = (movie.yearReleased - humans[member].yearBorn) 
+          // console.log(newObject)
+          newObject.ages.push(age)
+        }
+      })
+      
+      castObjects.push(newObject)
+      return castObjects
+    }, [])
+    
     return result;
 
-    // Annotation:
-    // Write your annotation here as a comment
+    // in: array of movies
+    // target - yearReleased and cast 
+    // use object.key on humans to get all the cast members 
+    // reduce returning an array 
+    // if (cast includes the actor find their finormation and caludate thier 
+    // age and push it into the array)
   }
 };
+
+
+// let students = [
+//   {
+//     name: 'Hermione',
+//     gender: 'female',
+//     house: 'Gryffindor',
+//     pointsForHouse: 50,
+//     personality: ['logical', 'kind', 'just', 'book worm']
+//   },
+//   {
+//     name: 'Harry',
+//     gender: 'male',
+//     house: 'Gryffindor',
+//     pointsForHouse: 35,
+//     personality: ['brave', 'loyal', 'selfless', 'courage']
+//   },
+//   {
+//     name: 'Ron',
+//     gender: 'male',
+//     house: 'Gryffindor',
+//     pointsForHouse: -5,
+//     personality: ['stubborn', 'strategist', 'loyal', 'passionate']
+//   },
+//   {
+//     name: 'Luna',
+//     gender: 'female',
+//     house: 'Ravenclaw',
+//     pointsForHouse: 15,
+//     personality: ['whimsical', 'quiet', 'dependable']
+//   },
+//   {
+//     name: 'Cedric',
+//     gender: 'male',
+//     house: 'Hufflepuff',
+//     pointsForHouse: 20,
+//     personality: ['brave', 'just', 'modest']
+//   },
+//   {
+//     name: 'Draco',
+//     gender: 'male',
+//     house: 'Slytherin',
+//     pointsForHouse: 30,
+//     personality: ['cunning', 'arrogant', 'jealous']
+//   },
+//   {
+//     name: 'Pansy',
+//     gender: 'female',
+//     house: 'Slytherin',
+//     pointsForHouse: 10,
+//     personality: ['leader', 'selfish', 'team-player']
+//   },
+//   {
+//     name: 'Cho',
+//     gender: 'female',
+//     house: 'Ravenclaw',
+//     pointsForHouse: 20,
+//     personality: ['brave', 'loyal', 'intelligent', 'extrovert']
+//   }
+// ]
+
+// let houseHeads = {
+//   McGonagall: 'Gryffindor',
+//   Snape: 'Slytherin',
+//   Sprout: 'Hufflepuff',
+//   Flitwick: 'Ravenclaw'
+// }
+
+// //Problems 1-3 use everything above, problems 4-5 use the hogwarts object 
+
+// let hogwarts = {
+//   classes: [
+//     { name: 'Transfiguration', instructor: 'McGonagall', type: 'core' },
+//     { name: 'Charms', instructor: 'Flitwick', type: 'core' },
+//     { name: 'Potions', instructor: 'Snape', type: 'core' },
+//     { name: 'History of Magic', instructor: 'P. Binns', type: 'core' },
+//     { name: 'Defence Against the Dark Arts', instructor: 'N/A', type: 'core' },
+//     { name: 'Astronomy', instructor: 'P. Sinistra', type: 'core' },
+//     { name: 'Herbology', instructor: 'Sprout', type: 'core' },
+//     { name: 'Arithmancy', instructor: 'P. Vector', type: 'elective' },
+//     { name: 'Muggle Studies', instructor: 'P. Burbage', type: 'elective' },
+//     { name: 'Divination', instructor: 'P. Trelawney', type: 'elective' },
+//     { name: 'Study of Ancient Runes', instructor: 'P. Babbling', type: 'elective' },
+//     { name: 'Care of Magical Creatures', instructor: 'Hagrid', type: 'elective' }
+//   ],
+//   rooms: ['Great Hall', 'Kitchens', 'Ravenclaw House', 'Slytherin House', 'Gryffindor House', 'Hufflepuff House', 'Instructor quarters', 'Headmasters Office', 'Hospital Wing', 'Chamber of Secrets', 'Greenhouses', 'Astronomy Tower'],
+//   populations: {
+//     students: 280,
+//     professors: 15,
+//     ghosts: 22,
+//     'house elves': 100,
+//   },
+//   founders: ['Godrick Gryffindor', 'Helga Hufflepuff', 'Rowena  Ravenclaw', 'Salazar Slytherin'],
+//   currentHeadmaster: {
+//     name: 'Albus Percival Wulfric Brian Dumbledore',
+//     age: 115,
+//     alive: true,
+//     wand: '15 inch Elder Thestral tail hair core',
+//     gender: 'male',
+//     'eye color': 'Blue',
+//     family: [
+//       { father: 'Percival', alive: false },
+//       { mother: 'Kendra', alive: false },
+//       { sister: 'Ariana', alive: false },
+//       { brother: 'Aberforth', alive: true }
+//     ]
+//   }
+// }
+
+
+
+// //Problem 1.1
+// // Create a function where you can put the name of a house head
+// // and get back the student objects that in that house
+
+
+
+
+// //Problem 1.2
+// //Can you make the array send back only the names of the students?
+
+
+
+
+
+// // Problem 2.1
+// //How many house points have been added to the house cups overall?
+
+
+
+// //Problem 2.2
+// //How many house points have the Ravenclaw folks added to their cup?
+
+
+
+
+// // Problem 3.1
+// //For all students excpet the Slytherins, add a property called 'currentlyAttending' with a value of true. For Slytherins, add make it false
+
+
+
+// //Problem 3.2
+// //Console log the class that each house head is teaching
+
+
+
+// // Problem 3.3
+// //Check to see if any students are missing from class
+
+
+// // Problem 5.1
+// //Dumbledore just defeated Grindelwald and obtained the elder wand! Create an array of all his wands
+
+
+
+// //Problem 5.2
+// //Which one of Dumbledore's family members are alive? RETURN JUST THE NAME, not an array of object
+
+
+
+// //Problem 5.3
+// //Which of them are dead? RETURN JUST THE NAMES, not an array of objects
 
 module.exports = {
   breweryPrompts,

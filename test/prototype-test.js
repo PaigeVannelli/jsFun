@@ -48,7 +48,7 @@ describe("PROTOTYPES", () => {
       }])
     });
     
-    it("growUp", () => {
+    it.only("growUp", () => {
       const e = kittyPrompts.growUp();
 
       expect(e).to.deep.equal([{

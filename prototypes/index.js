@@ -155,8 +155,8 @@ const kittyPrompts = {
 
 
 // DATASET: clubs from ./datasets/clubs
-const clubPrompts = {
-  membersBelongingToClubs() {
+// const clubPrompts = {
+//   membersBelongingToClubs() {
     // Create an object whose keys are the names of people, and whose values are
     // arrays that include the names of the clubs that person is a part of. e.g.
     // {
@@ -299,6 +299,34 @@ const clubPrompts = {
       // }, {})
 
       // return result;
+
+// in - array of club objects
+// for each club we want to either 
+  // create name key and push if name doesn't exist 
+  // push to correct name if object[name] exists 
+
+// create keys of each unique name 
+// if !finalObject[name]
+// create name and push club value 
+//
+
+// - reduce return an object 
+// - for each club.members forEach 
+//  - if member doesn't exisit create member and assign club to array 
+//  - else push club name into existing memebr array 
+
+const clubPrompts = {
+  membersBelongingToClubs() {
+    const result = clubs.reduce((allMembers, club) => {
+      club.members.forEach(member => {
+        if (!allMembers[member]) {
+          allMembers[member] = []
+        } 
+        allMembers[member].push(club.club)
+      })
+      return allMembers
+    }, {})
+    return result 
   }
 };
 
@@ -642,14 +670,22 @@ const bookPrompts = {
     //   'The Curious Incident of the Dog in the Night - Time', 'The Bell Jar',
     //   'Catch-22', 'Treasure Island']
 
+    //filter return book! horror or true crime 
+    //.map return just book title 
 
     const result = books.filter(book => {
       return book.genre !== 'Horror' && book.genre !== 'True Crime'
     }).map(book => {
-      return book.title
+      return `${book.title} this is the title`
     })
 
-    console.log(result)
+    // const result = books.filter(book => {
+    //   return book.genre !== 'Horror' && book.genre !== 'True Crime'
+    // }).map(book => {
+    //   return book.title
+    // })
+
+    // console.log(result)
 
     // array of book objects
     // targeting book.genre
@@ -1003,11 +1039,33 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+
+
+    const result = instructors.reduce((countArray, instructor) => {
+      let teacherObject = {
+        name: instructor.name
+      }
+      cohorts.forEach(cohort => {
+        if (cohort.module === instructor.module) {
+          teacherObject.studentCount = cohort.studentCount
+        }
+      })
+      countArray.push(teacherObject)
+      return countArray
+    }, [])
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
+    //in - array of objects
+    //return an array of the same length but mutated 
+
+
+    // use a reduce on instructire return []
+    // new object with key name = name
+    // if (cohort.module === instructor.module )
+    // take student count from cohorts object and add it to final object 
+    // push new object into final array 
   },
 
   studentsPerInstructor() {

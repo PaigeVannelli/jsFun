@@ -48,7 +48,7 @@ describe("PROTOTYPES", () => {
       }])
     });
     
-    it.only("growUp", () => {
+    it("growUp", () => {
       const e = kittyPrompts.growUp();
 
       expect(e).to.deep.equal([{
@@ -72,7 +72,7 @@ describe("PROTOTYPES", () => {
   });
   
   describe("Club Prompts", () => {
-    it("membersBelongingToClubs", () => {
+    it.only("membersBelongingToClubs", () => {
       const e = clubPrompts.membersBelongingToClubs({
         Louisa: ["Drama", "Art"],
         Pam: ["Drama", "Chess", "Newspaper"],
@@ -276,7 +276,7 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Book prompts", () => {
-    it("removeViolence", () => {
+    it.only("removeViolence", () => {
       const e = bookPrompts.removeViolence();
 
       expect(e).to.deep.equal(['1984',
@@ -415,7 +415,7 @@ describe("PROTOTYPES", () => {
   });
   
   describe("Turing Prompts", () => {
-    it("studentsForEachInstructor", () => {
+    it.only("studentsForEachInstructor", () => {
       const e = turingPrompts.studentsForEachInstructor();
 
       expect(e).to.deep.equal([{

@@ -1746,12 +1746,21 @@ const kittyPrompts = {
     // .filter(cat => {
     //   cat.color === 'orange';
     // })
-   const result = 
 
+   const result = kitties.filter(cat => {
+     return cat.color === 'orange'
+   }).map(cat => cat.name)
+
+   return result
   },
 
   sortByAge() {
     // Sort the kitties by their age
+    const result = kitties.sort((a, b) => {
+      return b.age - a.age
+    })
+
+    return result
   },
 
   growUp() {
@@ -1767,6 +1776,15 @@ const kittyPrompts = {
     //   color: 'orange'
     // },
     // ...etc]
+
+    const result = kitties.sort((a, b) => {
+      return b.age - a.age
+    }).map(cat => {
+      cat.age += 2
+      return cat
+    })
+
+    return result
 
   }
 }
@@ -1812,6 +1830,15 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
+    const result = mods.map(mod => {
+      return {
+        mod: mod.mod,
+        studentsPerInstructor: mod.students / mod.instructors
+      }
+    })
+
+    return result
+
   }
 };
 
@@ -1842,6 +1869,15 @@ const cakePrompts = {
     //    ..etc
     // ]
 
+    const result = cakes.map(cake => {
+      return {
+        flavor: cake.cakeFlavor,
+        inStock: cake.inStock
+      }
+    })
+
+    return result
+
   },
 
   onlyInStock() {
@@ -1865,19 +1901,36 @@ const cakePrompts = {
     // ..etc
     // ]
 
+    const result = cakes.filter(cake => cake.inStock > 0)
+    return result
   },
 
   totalInventory() {
     // Return the total amount of cakes in stock e.g.
     // 59
+    let result = 0
+    cakes.forEach(cake => {
+      result += cake.inStock
+    })
+    return result
   },
 
   allToppings() {
     // Return an array of all unique toppings (no duplicates) needed to bake
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
+    const result = cakes.reduce((allToppings, cake) => {
+       cake.toppings.forEach(topping => {
+         if (!allToppings.includes(topping)) {
+           allToppings.push(topping)
+         }
+       })
+       return allToppings
+    }, [])
 
+    return result 
   },
+
 
   groceryList() {
     // I need to make a grocery list. Please give me an object where the keys are

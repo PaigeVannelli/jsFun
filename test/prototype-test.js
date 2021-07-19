@@ -20,7 +20,7 @@ const {
 
 describe("PROTOTYPES", () => {
   describe("Kitty Prompts", () => {
-    it.only("orangeKittyNames", () => {
+    it("orangeKittyNames", () => {
       const e = kittyPrompts.orangeKittyNames();
       
       expect(e).to.deep.equal(["Tiger", "Snickers"])
@@ -188,7 +188,7 @@ describe("PROTOTYPES", () => {
       expect(e).to.deep.equal(["dutch process cocoa", "toasted sugar", "smoked sea salt", "berries", "edible flowers", "mint", "cranberry", "crystallized ginger"])
     });
     
-    it("groceryList", () => {
+    it.only("groceryList", () => {
       const e = cakePrompts.groceryList();
 
       expect(e).to.deep.equal({
